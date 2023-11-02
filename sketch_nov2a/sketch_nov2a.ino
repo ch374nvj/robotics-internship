@@ -8,8 +8,8 @@
 #define LOOK_FRONT 90
 #define LOOK_RIGHT 180
 #define SERVO_PIN 2
-#define TRIGGER_PIN  12 
-#define ECHO_PIN     11 
+#define TRIGGER_PIN  5
+#define ECHO_PIN     6
 #define MAX_DISTANCE 150
 #define TURN_DELAY 2000
 
@@ -34,13 +34,15 @@ void setup() {
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
   myservo.attach(SERVO_PIN);
+  Serial.begin(9600);
 }
 void loop() {
   delay(50);
   analogWrite(EN_A, 255);
   analogWrite(EN_B, 255);
-  
-  pos = sonarResponse();
+  Serial.println(sonar.ping_cm());
+  if(sonar.ping_cm()<=10)
+    pos = sonarResponse();
   
   switch(pos) {
     case 0:
@@ -89,6 +91,7 @@ void stop() {
 }
 
 int sonarResponse() {
+    stop();
     if (sonar.ping_cm()<=10 && sonar.ping_cm()!=0) 
     {
       myservo.write(LOOK_LEFT);
