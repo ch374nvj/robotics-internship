@@ -39,8 +39,8 @@ void setup() {
 }
 void loop() {
   delay(50);
-  analogWrite(EN_A, MOTOR_SPEED);
-  analogWrite(EN_B, MOTOR_SPEED);
+  analogWrite(EN_A, 255);
+  analogWrite(EN_B, 180);
   Serial.println(sonar.ping_cm());
   if(sonar.ping_cm()<=THRESHOLD)
     pos = sonarResponse();
