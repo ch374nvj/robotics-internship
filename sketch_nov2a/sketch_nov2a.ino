@@ -11,8 +11,9 @@
 #define TRIGGER_PIN  5
 #define ECHO_PIN     6
 #define MAX_DISTANCE 150
-#define TURN_DELAY 2000
-
+#define TURN_DELAY 200
+#define MOTOR_SPEED 200
+#define THRESHOLD 20
 
 #include<Servo.h>
 #include<NewPing.h>
@@ -38,10 +39,10 @@ void setup() {
 }
 void loop() {
   delay(50);
-  analogWrite(EN_A, 255);
-  analogWrite(EN_B, 255);
+  analogWrite(EN_A, MOTOR_SPEED);
+  analogWrite(EN_B, MOTOR_SPEED);
   Serial.println(sonar.ping_cm());
-  if(sonar.ping_cm()<=10)
+  if(sonar.ping_cm()<=THRESHOLD)
     pos = sonarResponse();
   
   switch(pos) {
@@ -52,10 +53,12 @@ void loop() {
     case 1:
       moveLeft();
       delay(TURN_DELAY);
+      stop();
       break;
     case 2:
       moveRight();
       delay(TURN_DELAY);
+      stop();
       break;
     default:
       stop();
@@ -92,8 +95,8 @@ void stop() {
 
 int sonarResponse() {
     stop();
-    if (sonar.ping_cm()<=10 && sonar.ping_cm()!=0) 
-    {
+    // if (sonar.ping_cm()<=THRESHOLD&& sonar.ping_cm()!=0) 
+    // {
       myservo.write(LOOK_LEFT);
       left = sonar.ping_cm();
       delay(700);
@@ -113,12 +116,12 @@ int sonarResponse() {
       Serial.print(front);
       Serial.println("right: ");
       Serial.print(right);
-    }
-    if (front >= 10)
+    // }
+    if (front >= THRESHOLD)
       return 0;
-    else if (left >= 10)
+    else if (left >= THRESHOLD)
       return 1;
-    else if (right >= 10)
+    else if (right >= THRESHOLD)
       return 2;
     else
       return 3;
