@@ -2,8 +2,8 @@
 #define IN2 11
 #define IN3 12
 #define IN4 13
-#define EN_A 8
-#define EN_B 9
+#define EN_A 9
+#define EN_B 3
 #define LOOK_LEFT 0
 #define LOOK_FRONT 90
 #define LOOK_RIGHT 180
@@ -11,9 +11,9 @@
 #define TRIGGER_PIN  5
 #define ECHO_PIN     6
 #define MAX_DISTANCE 150
-#define TURN_DELAY 200
+#define TURN_DELAY 600
 #define MOTOR_SPEED 200
-#define THRESHOLD 20
+#define THRESHOLD 5
 
 #include<Servo.h>
 #include<NewPing.h>
@@ -39,6 +39,9 @@ void setup() {
 }
 void loop() {
   delay(50);
+  left = 0;
+  right = 0;
+  front = 0;
   analogWrite(EN_A, 255);
   analogWrite(EN_B, 180);
   Serial.println(sonar.ping_cm());
@@ -48,16 +51,16 @@ void loop() {
   switch(pos) {
     case 0:
       moveFwd();
-      delay(200);
+      // delay(200);
       break;
     case 1:
       moveLeft();
-      delay(TURN_DELAY);
+      // delay(TURN_DELAY);
       stop();
       break;
     case 2:
       moveRight();
-      delay(TURN_DELAY);
+      // delay(TURN_DELAY);
       stop();
       break;
     default:
@@ -73,17 +76,23 @@ void moveFwd(){
 }
 
 void moveLeft() {
+  analogWrite(EN_A, 180);
+  analogWrite(EN_B, 100);
   digitalWrite (IN1, HIGH);
   digitalWrite (IN2, LOW);
   digitalWrite (IN3, LOW);
   digitalWrite (IN4, HIGH);
+  delay(TURN_DELAY);
 }
 
 void moveRight() {
+  analogWrite(EN_A, 100);
+  analogWrite(EN_B, 255);
   digitalWrite (IN1, LOW);
   digitalWrite (IN2, HIGH);
   digitalWrite (IN3, HIGH);
   digitalWrite (IN4, LOW);  
+  delay(TURN_DELAY);
 }
 
 void stop() {
