@@ -18,5 +18,5 @@ delay(1000);
 if (pos<=180 && pos>=0)
   servo1.write(pos);
 else
-  Serial.println("goobe");
+  Serial.println("Error");
 }
