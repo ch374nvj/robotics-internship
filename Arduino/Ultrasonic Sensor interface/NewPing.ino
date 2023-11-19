@@ -1,6 +1,6 @@
-// ---------------------------------------------------------------------------
-// Example NewPing library sketch that does a ping about 20 times per second.
-// ---------------------------------------------------------------------------
+/*
+    Team: Top-Gun
+*/
 
 #include <NewPing.h>
 

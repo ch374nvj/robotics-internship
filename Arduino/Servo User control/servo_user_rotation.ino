@@ -1,3 +1,7 @@
+/*
+    Team: Top-Gun
+*/
+
 #include <Servo.h>
 Servo servo1;
 int pos = 0;
