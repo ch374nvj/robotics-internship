@@ -1,3 +1,9 @@
+#####################
+#                   #
+#   Team: Top-Gun   #
+#                   #
+#####################
+
 import cv2 as cv
 
 pic = cv.imread('road.jpg')
