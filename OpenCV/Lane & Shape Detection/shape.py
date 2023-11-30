@@ -27,12 +27,12 @@ upper_color = np.array([179,255,255])
 while True:
     ret, frame = cap.read()
 
-    shapes = find_shapes(frame, lower_color, upper_color, 4)
+    shapes = find_shapes(frame, lower_color, upper_color, 6)
 
     for shape in shapes:
         cv2.drawContours(frame, [shape], 0, (0,255,0), 3)
     
-    cv2.imshow('Colour Shape Traching', frame)
+    cv2.imshow('Colour Shape Tracking', frame)
 
     if cv2.waitKey(1) & 0xff == ord('q'):
         break
